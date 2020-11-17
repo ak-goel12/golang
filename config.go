@@ -15,7 +15,7 @@ const (
 	dbname   = "go_sql"
 )
 
-
+//return connection string
 func dsn(dbName string) string {  
     return fmt.Sprintf("%s:%s@tcp(%s)/%s", username, password, hostname, dbName)
 }
@@ -33,6 +33,7 @@ func main(){
 	fmt.Println("Connected")
 	defer db.Close() //close the connection
 	
+// insert query
 	insert,err := db.Query("INSERT INTO user_info (name,mobile,address) VALUES ('AKSHIT','9818715981','435A/2')") 
 	
 
@@ -43,6 +44,8 @@ func main(){
 	fmt.Println("Successfully inserted the data")
 
 	defer insert.Close()
+
+// update query
 	update,err := db.Query("Update user_info SET name='Ashish', mobile ='1234567890' where id = 2")
 
 	if err!=nil{
@@ -51,6 +54,7 @@ func main(){
 
 	defer update.Close()
 
+//delete query
 	delete,err := db.Query("DELETE FROM user_info WHERE id = 3")
 
 	if err!=nil{
@@ -58,7 +62,8 @@ func main(){
 	}
 
 	defer delete.Close()
-	
+
+//read query
 	results,err := db.Query("Select * from user_info")
 
 	if err!=nil{
